@@ -29,7 +29,7 @@ public final class Table {
         return Collections.unmodifiableList(tableA);
     }
 
-    public List<String> getTableB() {
+    public static List<String> getTableB() {
         return Collections.unmodifiableList(tableB);
     }
 }
