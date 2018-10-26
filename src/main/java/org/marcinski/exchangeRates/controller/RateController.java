@@ -21,7 +21,7 @@ import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 @WebServlet("/rates")
-public class ConnectionController extends HttpServlet {
+public class RateController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
