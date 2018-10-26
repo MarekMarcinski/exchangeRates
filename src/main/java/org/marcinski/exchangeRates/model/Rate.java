@@ -1,10 +1,11 @@
 package org.marcinski.exchangeRates.model;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 public class Rate {
     private String no;
     private String effectiveDate;
+
+    @Getter
     private double mid;
 }
