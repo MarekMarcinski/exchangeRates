@@ -32,5 +32,10 @@
         <h1>Standard deviance: ${standardDeviance}</h1>
     </c:if>
 
+    <%--@elvariable id="errorMsg" type="java.lang.String"--%>
+    <c:if test="${errorMsg != null}">
+        <h1 style="color: red">${errorMsg}</h1>
+    </c:if>
+
 </body>
 </html>
