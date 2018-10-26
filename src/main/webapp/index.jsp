@@ -24,7 +24,10 @@
         <button type="submit">Send</button>
     </form>
 
+    <%--@elvariable id="average" type="java.lang.Double"--%>
     <c:if test="${average!=null}">
+        <%--@elvariable id="currencyCode" type="java.lang.Double"--%>
+        <%--@elvariable id="standardDeviance" type="java.lang.Double"--%>
         <h1>Average value for ${fn:toUpperCase(currencyCode)}: ${average}</h1>
         <h1>Standard deviance: ${standardDeviance}</h1>
     </c:if>
