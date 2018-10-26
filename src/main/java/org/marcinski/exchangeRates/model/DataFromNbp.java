@@ -1,14 +1,15 @@
 package org.marcinski.exchangeRates.model;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
 public class DataFromNbp {
 
     private String table;
     private String currency;
     private String code;
+
+    @Getter
     private List<Rate> rates;
 }
