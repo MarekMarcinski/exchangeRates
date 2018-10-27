@@ -1,25 +1,30 @@
+<%--@elvariable id="dateNow" type="java.time.LocalDate"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Exchange rates</title>
 </head>
 <body>
 
     <h3>To obtain the average exchange rate and the standard deviation of the currency, <br>
-        please enter the currency code and date range.</h3>
-    <h2 style="color: red">The date must be in a format: yyyy-mm-dd</h2>
+        please pick the currency code and date range.</h3>
 
     <form action="rates" method="get">
         <label for="currencyCode">
-            <input type="text" id="currencyCode" name="currencyCode" placeholder="Currency code">
+            <select class="form-control" id="currencyCode" name="currencyCode">
+                <%--@elvariable id="currencyTable" type="org.marcinski.exchangeRates.model.Table"--%>
+                <c:forEach var="code" items="${currencyTable}">
+                    <option name="${code}" value="${code}"> ${code} </option>
+                </c:forEach>
+            </select>
         </label><br>
         <label for="startDate">
-            <input type="text" id="startDate" name="startDay" placeholder="Start date">
+            <input type="date" id="startDate" name="startDay" value="${dateNow}">
         </label><br>
         <label for="endDate">
-            <input type="text" id="endDate" name="endDay" placeholder="End date">
+            <input type="date" id="endDate" name="endDay" value="${dateNow}">
         </label><br>
         <button type="submit">Send</button>
     </form>
