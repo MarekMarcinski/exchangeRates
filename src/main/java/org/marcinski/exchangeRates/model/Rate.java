@@ -7,5 +7,8 @@ public class Rate {
     private String effectiveDate;
 
     @Getter
-    private double mid;
+    private double bid;
+
+    @Getter
+    private double ask;
 }
