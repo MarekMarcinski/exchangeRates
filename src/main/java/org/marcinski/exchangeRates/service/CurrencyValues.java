@@ -15,35 +15,48 @@ import java.util.List;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
-public class CurrencyValues {
+class CurrencyValues {
 
     @Setter
     private String url;
 
-    public Double getAverageValueOfRates() throws IOException {
+    Double getAverageValueOfBids() throws IOException {
         List<Rate> rates = getRatesList();
         OptionalDouble optionalAverage = rates.stream()
-                .map(Rate::getMid)
+                .map(Rate::getBid)
                 .mapToDouble((x) -> x)
                 .average();
+        return getAverageValue(optionalAverage);
+    }
+
+    Double getStandardVariance() throws IOException {
+        List<Rate> rates = getRatesList();
+        List<Double> asks = rates.stream().map(Rate::getAsk).collect(Collectors.toList());
+
+        double average = getAverageValueOfAsks();
+        double temp = 0;
+        for(double ask : asks)
+            temp += (ask - average)*(ask - average);
+        DecimalFormat df = new DecimalFormat("#.####");
+        return Double.valueOf(df.format(Math.sqrt(temp/(asks.size()))));
+    }
+
+    private Double getAverageValueOfAsks() throws IOException {
+        List<Rate> rates = getRatesList();
+        OptionalDouble optionalAverage = rates.stream()
+                .map(Rate::getAsk)
+                .mapToDouble((x) -> x)
+                .average();
+        return getAverageValue(optionalAverage);
+    }
+
+    private Double getAverageValue(OptionalDouble optionalAverage) {
         Double average = null;
         if (optionalAverage.isPresent()){
             DecimalFormat df = new DecimalFormat("#.####");
             average = Double.valueOf(df.format(optionalAverage.getAsDouble()));
         }
         return average;
-    }
-
-    public Double getStandardVariance() throws IOException {
-        List<Rate> rates = getRatesList();
-        List<Double> mids = rates.stream().map(Rate::getMid).collect(Collectors.toList());
-
-        double average = getAverageValueOfRates();
-        double temp = 0;
-        for(double mid : mids)
-            temp += (mid - average)*(mid - average);
-        DecimalFormat df = new DecimalFormat("#.####");
-        return Double.valueOf(df.format(Math.sqrt(temp/(mids.size()))));
     }
 
     private List<Rate> getRatesList() throws IOException {
